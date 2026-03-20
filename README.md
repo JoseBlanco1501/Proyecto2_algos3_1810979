@@ -87,8 +87,7 @@ El archivo `deck.csv` debe estar en el mismo directorio.
 ## Manejo de errores
 
 - Las validaciones de las cartas se realizan en `CartaMostro`.
-- Si una carta del CSV es invalida, se muestra un mensaje claro y el programa finaliza sin imprimir stack trace.
+- Si una carta del CSV es invalida, se muestra un mensaje claro y el programa finaliza.
 - Esto garantiza que el grafo solo se construya con datos correctos.
-```
 
 ---
