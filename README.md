@@ -3,8 +3,6 @@
 ## Integrante
 - Jose Alejandro Blanco Rojas - Carnet 18-10979
 
-
-```
 # Mundo Chiquito – Implementacion
 
 Este proyecto modela el efecto de la carta *Mundo Chiquito* del juego “Duelo de cartas de mostro”. A partir de un archivo CSV con cartas, se construye un grafo dirigido donde cada carta es un vertice y se agregan arcos entre cartas que comparten exactamente una caracteristica. Finalmente, se imprimen todas las ternas A B C tales que existen los arcos A → B y B → C.
