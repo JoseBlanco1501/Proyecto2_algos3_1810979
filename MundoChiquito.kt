@@ -27,12 +27,13 @@ fun compartenExactamenteUna(a: CartaMostro, b: CartaMostro): Boolean {
  * @return lista de cartas validas
  */
 fun cargarDeck(path: String): List<CartaMostro> {
-    return File(path).readLines()
-        .drop(1)
-        .mapNotNull { linea: String ->
-            val partes = linea.split(",")
+    return File(path).readLines()          // Lee todas las lineas del archivo
+        .drop(1)                           // Omite la primera linea (encabezado del CSV)
+        .mapNotNull { linea: String ->     // Procesa cada linea y descarta las que sean invalidas
+            val partes = linea.split(",")  // Separa los campos por coma
 
             try {
+                // Intenta construir una carta con los valores del CSV
                 CartaMostro(
                     partes[0],
                     partes[1].toInt(),
@@ -40,6 +41,7 @@ fun cargarDeck(path: String): List<CartaMostro> {
                     partes[3].toInt()
                 )
             } catch (e: IllegalArgumentException) {
+                // Si la carta es invalida, muestra el error y termina el programa
                 println("Error en carta '${partes[0]}': ${e.message}")
                 exitProcess(1)
             }
@@ -54,20 +56,21 @@ fun cargarDeck(path: String): List<CartaMostro> {
  * @return grafo construido
  */
 fun construirGrafo(cartas: List<CartaMostro>): Grafo<CartaMostro> {
-    val g = ListaAdyacenciaGrafo<CartaMostro>()
+    val g = ListaAdyacenciaGrafo<CartaMostro>()   // Crea un grafo vacio
+    cartas.forEach { g.agregarVertice(it) }       // Agrega cada carta como vertice del grafo
 
-    cartas.forEach { g.agregarVertice(it) }
-
+    // Recorre todas las parejas de cartas para determinar si deben conectarse
     for (a in cartas) {
         for (b in cartas) {
+            // Se conecta A -> B solo si son distintas y comparten exactamente una caracteristica
             if (a != b && compartenExactamenteUna(a, b)) {
                 g.conectar(a, b)
             }
         }
     }
-
-    return g
+    return g   
 }
+
 
 /**
  * Imprime todas las ternas A B C tales que:
