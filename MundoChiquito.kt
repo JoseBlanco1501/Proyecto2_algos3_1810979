@@ -27,11 +27,18 @@ fun compartenExactamenteUna(a: CartaMostro, b: CartaMostro): Boolean {
  * @return lista de cartas validas
  */
 fun cargarDeck(path: String): List<CartaMostro> {
+
     return File(path).readLines()          // Lee todas las lineas del archivo
         .drop(1)                           // Omite la primera linea (encabezado del CSV)
         .mapNotNull { linea: String ->     // Procesa cada linea y descarta las que sean invalidas
-            val partes = linea.split(",")  // Separa los campos por coma
 
+            // Manejo de error: linea vacia o solo espacios
+            if (linea.isBlank()) {
+                println("Error: se encontro una linea vacia en el archivo `deck.csv`.")
+                exitProcess(1)
+            }
+
+            val partes = linea.split(",")  // Separa los campos por coma
             try {
                 // Intenta construir una carta con los valores del CSV
                 CartaMostro(
